@@ -14,11 +14,11 @@ if (-Not (Test-Path -Path $inputFile)) {
     exit
 }
 
-# Compress the SAS dataset using 7-Zip with the specified compression level
+# Compress the SAS dataset using 7-Zip with the specified compression level and delete the source file
 try {
-    $result = & $sevenZipPath a -mx=$compressionLevel $outputFile $inputFile
+    $result = & $sevenZipPath a -mx=$compressionLevel -sdel $outputFile $inputFile
     if ($?) {
-        Add-Content -Path $logFile -Value "$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss')) - SUCCESS: Compressed $inputFile to $outputFile with compression level $compressionLevel."
+        Add-Content -Path $logFile -Value "$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss')) - SUCCESS: Compressed $inputFile to $outputFile with compression level $compressionLevel and deleted the source file."
     } else {
         Add-Content -Path $logFile -Value "$((Get-Date).ToString('yyyy-MM-dd HH:mm:ss')) - ERROR: Failed to compress $inputFile to $outputFile. Output: $result"
     }
