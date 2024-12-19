@@ -1,0 +1,22 @@
+name: Compress Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  compress:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install 7-Zip
+      run: choco install 7zip --yes
+
+    - name: Run compression script
+      run: ./compress_file.ps1 -inputFile "C:\path\to\your\dataset.sas7bdat" -outputFile "C:\path\to\your\dataset.7z" -logFile "C:\path\to\your\compression.log"
+      shell: pwsh
